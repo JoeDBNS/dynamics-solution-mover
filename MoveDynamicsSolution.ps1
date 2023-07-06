@@ -38,6 +38,9 @@ $solutionPath = "c:\pac\Solutions\" + $solutionChoice + ".zip"
 # Export Solution
 pac solution export --path $solutionPath --name $solutionChoice --overwrite
 
+# Open Folder Containing Exported Solution
+Start-Process -FilePath C:\Windows\explorer.exe -ArgumentList "/e, ""c:\pac\Solutions\"""
+
 # List Auth Profiles
 $profiles
 
