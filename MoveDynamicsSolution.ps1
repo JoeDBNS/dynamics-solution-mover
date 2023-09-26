@@ -32,8 +32,12 @@ $solutions
 # Prompt the user to enter the name of a solution from the list
 $solutionChoice = Read-Host "Enter the name of a solution from the list"
 
+# Get Unix Time Stamp
+$dateTime = (Get-Date).ToUniversalTime()
+$unixTimeStamp = [System.Math]::Truncate((Get-Date -Date $dateTime -UFormat %s))
+
 # Set Path Variables
-$solutionPath = "c:\pac\Solutions\" + $solutionChoice + ".zip"
+$solutionPath = "c:\pac\Solutions\" + $solutionChoice + "-" + $unixTimeStamp + ".zip"
 
 # Export Solution
 pac solution export --path $solutionPath --name $solutionChoice --overwrite
