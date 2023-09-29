@@ -8,8 +8,47 @@ $profiles = pac auth list
 # Display the profiles in the console
 $profiles
 
+# Clean profiles data to use later
+$profilesClean = New-Object System.Collections.ArrayList
+
+if ($profiles.length -gt 1) {
+    $profileMaxLength = $profiles[1].length
+    $profileDetailsStartIndex = $profiles[1].IndexOf("DATAVERSE") + 10
+    $profileDetailsEndIndex = $profileMaxLength - $profileDetailsStartIndex
+
+    for ($i = 1; $i -lt $profiles.Count-1; $i++) {
+        $profileClean = New-Object System.Collections.ArrayList
+        $profileSplit = New-Object System.Collections.ArrayList(,$profiles[$i].Substring($profileDetailsStartIndex, $profileDetailsEndIndex).Split(" "))
+
+        foreach ($item in $profileSplit) {
+            if ($item -ne "") {
+                $profileClean.Add($item)| out-null
+            }
+        }
+
+        $profilesClean.Add($profileClean)| out-null
+    }
+}
+
+
 # Prompt the user to enter the name of a profile from the list or type "new" to create a new one
 $choice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
+
+
+$foundChoiceInProfiles = $false
+
+while ($foundChoiceInProfiles -eq $false) {
+    foreach ($profile in $profilesClean) {
+        if ($profile[0] -eq $choice -or $profile[0] -eq "new") {
+            $foundChoiceInProfiles = $true
+        }
+    }
+
+    if ($foundChoiceInProfiles -eq $false) {
+        $choice = Read-Host "Choice not found. Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
+    }
+
+}
 
 # If the user typed "new", prompt them to enter the URL of the environment and create a new profile
 if ($choice -eq "new") {
