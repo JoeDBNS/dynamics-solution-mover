@@ -36,7 +36,8 @@ $exportChoice = $exportChoice.Trim()
 
 # Verify the user entered a valid profile name or "new"
 while (!($profilesClean -contains $exportChoice)) {
-    $exportChoice = Read-Host "Choice not found. Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
+    "`nCHOICE NOT FOUND"
+    $exportChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
     $exportChoice = $exportChoice.Trim()
 }
 
@@ -75,7 +76,8 @@ $solutionChoice = $solutionChoice.Trim()
 
 # Verify the user entered a valid solution name
 while (!($solutionsClean -contains $solutionChoice)) {
-    $solutionChoice = Read-Host "Choice not found. Enter the name of a solution from the list"
+    "`nCHOICE NOT FOUND"
+    $solutionChoice = Read-Host "Enter the name of a solution from the list"
     $solutionChoice = $solutionChoice.Trim()
 }
 
@@ -101,7 +103,8 @@ $importChoice = $importChoice.Trim()
 
 # Verify the user entered a valid profile name or "new"
 while (!($profilesClean -contains $importChoice)) {
-    $importChoice = Read-Host "Choice not found. Enter the name of a profile from the list or type 'new' to create a new one you want to Import the solution to"
+    "`nCHOICE NOT FOUND"
+    $importChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to Import the solution to"
     $importChoice = $importChoice.Trim()
 }
 
