@@ -79,6 +79,11 @@ $profiles
 # Prompt the user to enter the name of a profile from the list or type "new" to create a new one to Import the solution to
 $importChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one to Import the solution to"
 
+# Verify the user entered a valid profile name or "new"
+while (!($profilesClean -contains $importChoice)) {
+    $importChoice = Read-Host "Choice not found. Enter the name of a profile from the list or type 'new' to create a new one you want to Import the solution to"
+}
+
 # If the user typed "new", prompt them to enter the URL of the environment and create a new profile
 if ($importChoice -eq "new") {
     $url = Read-Host "Enter the URL of the environment"
