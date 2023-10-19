@@ -9,8 +9,7 @@ $profiles = pac auth list
 $profiles
 
 # Clean profiles data to use later
-$profilesClean = New-Object System.Collections.ArrayList
-$profilesClean.Add("new")
+$profilesClean = [System.Collections.ArrayList]@("new")
 
 if ($profiles.length -gt 1) {
     $profileMaxLength = $profiles[1].length
