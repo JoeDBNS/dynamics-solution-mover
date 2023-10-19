@@ -43,12 +43,14 @@ while (!($profilesClean -contains $exportChoice)) {
 
 # If the user typed "new", prompt them to enter the URL of the environment and create a new profile
 if ($exportChoice -eq "new") {
-    $url = Read-Host "Enter the URL of the environment"
+    $url = Read-Host "`nEnter the URL of the environment"
     $profileName = Read-Host "Enter a Profile Name"
     pac auth create --url $url --name $profileName
     # Get the name of the newly created profile and store it in a variable
     $exportChoice = $profileName
 }
+
+""
 
 # Set the active profile to the one chosen or created
 pac auth select --name $exportChoice
@@ -116,6 +118,8 @@ if ($importChoice -eq "new") {
     # Get the name of the newly created profile and store it in a variable
     $importChoice = $importProfileName
 }
+
+""
 
 # Set the active profile to the one chosen or created
 pac auth select --name $importChoice
