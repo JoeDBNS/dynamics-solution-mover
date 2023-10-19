@@ -33,23 +33,23 @@ if ($profiles.length -gt 1) {
 
 
 # Prompt the user to enter the name of a profile from the list or type "new" to create a new one
-$choice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
+$exportChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
 
-while (!($profilesClean -contains $choice)) {
-    $choice = Read-Host "Choice not found. Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
+while (!($profilesClean -contains $exportChoice)) {
+    $exportChoice = Read-Host "Choice not found. Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
 }
 
 # If the user typed "new", prompt them to enter the URL of the environment and create a new profile
-if ($choice -eq "new") {
+if ($exportChoice -eq "new") {
     $url = Read-Host "Enter the URL of the environment"
     $profileName = Read-Host "Enter a Profile Name"
     pac auth create --url $url --name $profileName
     # Get the name of the newly created profile and store it in a variable
-    $choice = $profileName
+    $exportChoice = $profileName
 }
 
 # Set the active profile to the one chosen or created
-pac auth select --name $choice
+pac auth select --name $exportChoice
 
 # Get a list of solutions from the environment and store them in a variable
 $solutions = pac solution list
