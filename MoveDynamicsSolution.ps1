@@ -26,7 +26,7 @@ if ($profiles.length -gt 1) {
             }
         }
 
-        $profilesClean.Add($profileClean)| out-null
+        $profilesClean.Add($profileClean[0])| out-null
     }
 }
 
@@ -34,20 +34,8 @@ if ($profiles.length -gt 1) {
 # Prompt the user to enter the name of a profile from the list or type "new" to create a new one
 $choice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
 
-
-$foundChoiceInProfiles = $false
-
-while ($foundChoiceInProfiles -eq $false) {
-    foreach ($profile in $profilesClean) {
-        if ($profile[0] -eq $choice -or $profile[0] -eq "new") {
-            $foundChoiceInProfiles = $true
-        }
-    }
-
-    if ($foundChoiceInProfiles -eq $false) {
-        $choice = Read-Host "Choice not found. Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
-    }
-
+while (!($profilesClean -contains $choice)) {
+    $choice = Read-Host "Choice not found. Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
 }
 
 # If the user typed "new", prompt them to enter the URL of the environment and create a new profile
