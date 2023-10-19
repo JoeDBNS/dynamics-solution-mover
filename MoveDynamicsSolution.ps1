@@ -58,8 +58,24 @@ $solutions = pac solution list
 # Display the solutions in the console
 $solutions
 
+# Clean profiles data to use later
+$solutionsClean = New-Object System.Collections.ArrayList
+
+if ($solutions.length -gt 1) {
+    $solutionUniqueNameEndIndex = $solutions[4].IndexOf("Friendly Name") - 1
+
+    for ($i = 5; $i -lt $solutions.Count-1; $i++) {
+        $solutionsClean.Add($solutions[$i].substring(0, $solutionUniqueNameEndIndex).replace(' ', ''))| out-null
+    }
+}
+
 # Prompt the user to enter the name of a solution from the list
 $solutionChoice = Read-Host "Enter the name of a solution from the list"
+
+# Verify the user entered a valid solution name
+while (!($solutionsClean -contains $solutionChoice)) {
+    $solutionChoice = Read-Host "Choice not found. Enter the name of a solution from the list"
+}
 
 # Get Unix Time Stamp
 $dateTime = (Get-Date).ToUniversalTime()
