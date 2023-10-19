@@ -35,6 +35,7 @@ if ($profiles.length -gt 1) {
 # Prompt the user to enter the name of a profile from the list or type "new" to create a new one
 $exportChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
 
+# Verify the user entered a valid profile name or "new"
 while (!($profilesClean -contains $exportChoice)) {
     $exportChoice = Read-Host "Choice not found. Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
 }
