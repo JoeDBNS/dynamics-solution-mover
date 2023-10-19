@@ -10,6 +10,7 @@ $profiles
 
 # Clean profiles data to use later
 $profilesClean = New-Object System.Collections.ArrayList
+$profilesClean.Add("new")
 
 if ($profiles.length -gt 1) {
     $profileMaxLength = $profiles[1].length
