@@ -111,8 +111,8 @@ while (!($profilesClean -contains $importChoice)) {
 # If the user typed "new", prompt them to enter the URL of the environment and create a new profile
 if ($importChoice -eq "new") {
     $url = Read-Host "Enter the URL of the environment"
-    $profileName = Read-Host "Enter a Profile Name"
-    pac auth create --url $url --name $profileName
+    $importProfileName = Read-Host "Enter a Profile Name"
+    pac auth create --url $url --name $importProfileName
     # Get the name of the newly created profile and store it in a variable
     $importChoice = $importProfileName
 }
