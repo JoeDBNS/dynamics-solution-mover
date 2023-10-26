@@ -50,6 +50,7 @@ if ($exportChoice -eq "new") {
     $exportChoice = $profileName
 }
 
+# Output empty line
 ""
 
 # Set the active profile to the one chosen or created
@@ -119,6 +120,7 @@ if ($importChoice -eq "new") {
     $importChoice = $importProfileName
 }
 
+# Output empty line
 ""
 
 # Set the active profile to the one chosen or created
