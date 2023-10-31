@@ -84,6 +84,20 @@ while (!($solutionsClean -contains $solutionChoice)) {
     $solutionChoice = $solutionChoice.Trim()
 }
 
+# Output empty line
+""
+
+# Prompt the user to choose whether solution will be exported as Unmanaged or Managed
+$isSolutionManagedChoice = Read-Host "Do you want to export the solution as 'Managed' (y/n)"
+$isSolutionManagedChoice = $isSolutionManagedChoice.Trim().ToLower()
+
+# Verify the user entered a valid choice
+while (!(("y", "n") -contains $isSolutionManagedChoice)) {
+    "`nCHOICE NOT FOUND"
+    $isSolutionManagedChoice = Read-Host "Do you want to export the solution as 'Managed' (y/n)"
+    $isSolutionManagedChoice = $isSolutionManagedChoice.Trim().ToLower()
+}
+
 # Get Unix Time Stamp
 $dateTime = (Get-Date).ToUniversalTime()
 $unixTimeStamp = [System.Math]::Truncate((Get-Date -Date $dateTime -UFormat %s))
@@ -92,7 +106,13 @@ $unixTimeStamp = [System.Math]::Truncate((Get-Date -Date $dateTime -UFormat %s))
 $solutionPath = "c:\pac\Solutions\" + $solutionChoice + "-" + $unixTimeStamp + ".zip"
 
 # Export Solution
-pac solution export --path $solutionPath --name $solutionChoice --overwrite
+if ($isSolutionManagedChoice -eq "y") {
+    pac solution export --path $solutionPath --name $solutionChoice --overwrite --managed
+}
+else {
+    pac solution export --path $solutionPath --name $solutionChoice --overwrite
+}
+
 
 # Open Folder Containing Exported Solution
 Start-Process -FilePath C:\Windows\explorer.exe -ArgumentList "/e, ""c:\pac\Solutions\"""
