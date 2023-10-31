@@ -62,7 +62,7 @@ $solutions = pac solution list
 # Display the solutions in the console
 $solutions
 
-# Clean profiles data to use later
+# Clean solutions data to use later
 $solutionsClean = New-Object System.Collections.ArrayList
 
 if ($solutions.length -gt 1) {
