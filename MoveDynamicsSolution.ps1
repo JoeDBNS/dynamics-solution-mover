@@ -26,7 +26,7 @@ if ($profiles.length -gt 1) {
             }
         }
 
-        $profilesClean.Add($profileClean[0])| out-null
+        $profilesClean.Add($profileClean[1])| out-null
     }
 }
 
