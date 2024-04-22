@@ -12,21 +12,16 @@ $profiles
 $profilesClean = [System.Collections.ArrayList]@("new")
 
 if ($profiles.length -gt 1) {
-    $profileMaxLength = $profiles[1].length
-    $profileDetailsStartIndex = $profiles[1].IndexOf("DATAVERSE") + 10
-    $profileDetailsEndIndex = $profileMaxLength - $profileDetailsStartIndex
+    $profileNameStartIndex = $profiles[0].IndexOf("Name")
+    $profileNameEndIndex = $profiles[0].IndexOf("User")
+    $profileNameLength = $profileNameEndIndex - $profileNameStartIndex
 
     for ($i = 1; $i -lt $profiles.Count-1; $i++) {
-        $profileClean = New-Object System.Collections.ArrayList
-        $profileSplit = New-Object System.Collections.ArrayList(,$profiles[$i].Substring($profileDetailsStartIndex, $profileDetailsEndIndex).Split(" "))
+        $profileName = $profiles[$i].Substring($profileNameStartIndex, $profileNameLength).Trim()
 
-        foreach ($item in $profileSplit) {
-            if ($item -ne "") {
-                $profileClean.Add($item)| out-null
-            }
+        if ($profileName.length -gt 0) {
+            $profilesClean.Add($profileName)| out-null
         }
-
-        $profilesClean.Add($profileClean[1])| out-null
     }
 }
 
