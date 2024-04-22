@@ -26,13 +26,13 @@ if ($profiles.length -gt 1) {
 }
 
 # Prompt the user to enter the name of a profile from the list or type "new" to create a new one
-$exportChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
+$exportChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to EXPORT from"
 $exportChoice = $exportChoice.Trim()
 
 # Verify the user entered a valid profile name or "new"
 while (!($profilesClean -contains $exportChoice)) {
     "`nCHOICE NOT FOUND"
-    $exportChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to Export from"
+    $exportChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to EXPORT from"
     $exportChoice = $exportChoice.Trim()
 }
 
@@ -74,7 +74,7 @@ $solutionChoice = $solutionChoice.Trim()
 
 # Verify the user entered a valid solution name
 while (!($solutionsClean -contains $solutionChoice)) {
-    "`nCHOICE NOT FOUND"
+    "`nCHOICE NOT FOUND`n"
     $solutionChoice = Read-Host "Enter the name of a solution from the list"
     $solutionChoice = $solutionChoice.Trim()
 }
@@ -88,7 +88,7 @@ $isSolutionManagedChoice = $isSolutionManagedChoice.Trim().ToLower()
 
 # Verify the user entered a valid choice
 while (!(("y", "n") -contains $isSolutionManagedChoice)) {
-    "`nCHOICE NOT FOUND"
+    "`nCHOICE NOT FOUND`n"
     $isSolutionManagedChoice = Read-Host "Do you want to export the solution as 'Managed' (y/n)"
     $isSolutionManagedChoice = $isSolutionManagedChoice.Trim().ToLower()
 }
@@ -116,13 +116,13 @@ Start-Process -FilePath C:\Windows\explorer.exe -ArgumentList "/e, ""c:\pac\Solu
 $profiles
 
 # Prompt the user to enter the name of a profile from the list or type "new" to create a new one to Import the solution to
-$importChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one to Import the solution to"
+$importChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one to IMPORT the solution to"
 $importChoice = $importChoice.Trim()
 
 # Verify the user entered a valid profile name or "new"
 while (!($profilesClean -contains $importChoice)) {
-    "`nCHOICE NOT FOUND"
-    $importChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to Import the solution to"
+    "`nCHOICE NOT FOUND`n"
+    $importChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to IMPORT the solution to"
     $importChoice = $importChoice.Trim()
 }
 
