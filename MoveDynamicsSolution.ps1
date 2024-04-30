@@ -2,6 +2,17 @@
 # https://learn.microsoft.com/en-us/power-platform/developer/cli/introduction
 
 
+function ColorReadHost {
+    Param (
+        [String]$prompt,
+        [String]$color
+    )
+
+    $response = $(Write-Host $prompt": " -ForegroundColor $color -NoNewLine; Read-Host)
+    return $response
+}
+
+
 # Get a list of authentication profiles and store them in a variable
 $profiles = pac auth list
 
@@ -26,20 +37,21 @@ if ($profiles.length -gt 1) {
 }
 
 # Prompt the user to enter the name of a profile from the list or type "new" to create a new one
-$exportChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to EXPORT from"
+$exportChoice = ColorReadHost -prompt "Enter the name of a profile from the list or type 'new' to create a new one you want to EXPORT from" -color "Cyan"
 $exportChoice = $exportChoice.Trim()
 
 # Verify the user entered a valid profile name or "new"
 while (!($profilesClean -contains $exportChoice)) {
-    "`nCHOICE NOT FOUND"
-    $exportChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to EXPORT from"
+    Write-Host "`nCHOICE NOT FOUND`n" -ForegroundColor "Red"
+
+    $exportChoice = ColorReadHost -prompt "Enter the name of a profile from the list or type 'new' to create a new one you want to EXPORT from" -color "Cyan"
     $exportChoice = $exportChoice.Trim()
 }
 
 # If the user typed "new", prompt them to enter the URL of the environment and create a new profile
 if ($exportChoice -eq "new") {
-    $url = Read-Host "`nEnter the URL of the environment"
-    $profileName = Read-Host "Enter a Profile Name"
+    $url = ColorReadHost -prompt "`nEnter the URL of the environment" -color "Cyan"
+    $profileName = ColorReadHost -prompt "Enter a Profile Name" -color "Cyan"
     pac auth create --url $url --name $profileName
     # Get the name of the newly created profile and store it in a variable
     $exportChoice = $profileName
@@ -64,18 +76,19 @@ if ($solutions.length -gt 1) {
     $solutionUniqueNameEndIndex = $solutions[4].IndexOf("Friendly Name") - 1
 
     for ($i = 5; $i -lt $solutions.Count-1; $i++) {
-        $solutionsClean.Add($solutions[$i].substring(0, $solutionUniqueNameEndIndex).replace(' ', ''))| out-null
+        $solutionsClean.Add($solutions[$i].substring(0, $solutionUniqueNameEndIndex).replace(' ', '').Trim())| out-null
     }
 }
 
 # Prompt the user to enter the name of a solution from the list
-$solutionChoice = Read-Host "Enter the name of a solution from the list"
+$solutionChoice = ColorReadHost -prompt "Enter the name of a solution from the list" -color "Cyan"
 $solutionChoice = $solutionChoice.Trim()
 
 # Verify the user entered a valid solution name
 while (!($solutionsClean -contains $solutionChoice)) {
-    "`nCHOICE NOT FOUND`n"
-    $solutionChoice = Read-Host "Enter the name of a solution from the list"
+    Write-Host "`nCHOICE NOT FOUND`n" -ForegroundColor "Red"
+
+    $solutionChoice = ColorReadHost -prompt "Enter the name of a solution from the list" -color "Cyan"
     $solutionChoice = $solutionChoice.Trim()
 }
 
@@ -83,13 +96,14 @@ while (!($solutionsClean -contains $solutionChoice)) {
 ""
 
 # Prompt the user to choose whether solution will be exported as Unmanaged or Managed
-$isSolutionManagedChoice = Read-Host "Do you want to export the solution as 'Managed' (y/n)"
+$isSolutionManagedChoice = ColorReadHost -prompt "Do you want to export the solution as 'Managed' (y/n)" -color "Cyan"
 $isSolutionManagedChoice = $isSolutionManagedChoice.Trim().ToLower()
 
 # Verify the user entered a valid choice
 while (!(("y", "n") -contains $isSolutionManagedChoice)) {
-    "`nCHOICE NOT FOUND`n"
-    $isSolutionManagedChoice = Read-Host "Do you want to export the solution as 'Managed' (y/n)"
+    Write-Host "`nCHOICE NOT FOUND`n" -ForegroundColor "Red"
+
+    $isSolutionManagedChoice = ColorReadHost -prompt "Do you want to export the solution as 'Managed' (y/n)" -color "Cyan"
     $isSolutionManagedChoice = $isSolutionManagedChoice.Trim().ToLower()
 }
 
@@ -116,20 +130,21 @@ Start-Process -FilePath C:\Windows\explorer.exe -ArgumentList "/e, ""c:\pac\Solu
 $profiles
 
 # Prompt the user to enter the name of a profile from the list or type "new" to create a new one to Import the solution to
-$importChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one to IMPORT the solution to"
+$importChoice = ColorReadHost -prompt "Enter the name of a profile from the list or type 'new' to create a new one to IMPORT the solution to" -color "Cyan"
 $importChoice = $importChoice.Trim()
 
 # Verify the user entered a valid profile name or "new"
 while (!($profilesClean -contains $importChoice)) {
-    "`nCHOICE NOT FOUND`n"
-    $importChoice = Read-Host "Enter the name of a profile from the list or type 'new' to create a new one you want to IMPORT the solution to"
+    Write-Host "`nCHOICE NOT FOUND`n" -ForegroundColor "Red"
+
+    $importChoice = ColorReadHost -prompt "Enter the name of a profile from the list or type 'new' to create a new one to IMPORT the solution to" -color "Cyan"
     $importChoice = $importChoice.Trim()
 }
 
 # If the user typed "new", prompt them to enter the URL of the environment and create a new profile
 if ($importChoice -eq "new") {
-    $url = Read-Host "Enter the URL of the environment"
-    $importProfileName = Read-Host "Enter a Profile Name"
+    $url = ColorReadHost -prompt "`nEnter the URL of the environment" -color "Cyan"
+    $importProfileName = ColorReadHost -prompt "Enter a Profile Name" -color "Cyan"
     pac auth create --url $url --name $importProfileName
     # Get the name of the newly created profile and store it in a variable
     $importChoice = $importProfileName
